@@ -1,0 +1,40 @@
+# llms.txt — Ingeniería Cantabria
+# https://www.ingenieriacantabria.com/llms.txt
+
+> Ingeniería Cantabria es una empresa de ingeniería técnica ubicada en Santander (Cantabria, España),
+> especializada en ingeniería industrial, ingeniería de edificación e ingeniería agronómica.
+> Ofrece servicios técnicos a empresas, particulares y administraciones en toda Cantabria.
+
+## Empresa
+
+- **Nombre:** Ingeniería Cantabria
+- **Sede:** Santander, Cantabria, España
+- **Ámbito geográfico:** Comunidad Autónoma de Cantabria
+- **Sector:** Ingeniería técnica y consultoría
+- **Web:** https://www.ingenieriacantabria.com
+- **Contacto:** info@ingenieriacantabria.com
+- **Teléfono:** +34 942 00 00 00
+
+## Servicios
+
+### Ingeniería Industrial
+Proyectos industriales, legalización de maquinaria e instalaciones, licencias de actividad,
+auditorías energéticas, planes de autoprotección, peritajes industriales.
+Más información: https://www.ingenieriacantabria.com/industrial
+
+### Ingeniería de Edificación
+Proyecto básico y de ejecución, dirección de obra, Inspección Técnica de Edificios (ITE),
+certificado de eficiencia energética, cédula de habitabilidad, licencias de obras, peritajes.
+Más información: https://www.ingenieriacantabria.com/edificacion
+
+### Ingeniería Agronómica
+Proyectos de explotaciones ganaderas, sistemas de riego, gestión de purines,
+asesoramiento PAC, estudios de viabilidad agrícola, peritajes agrarios, energías renovables.
+Más información: https://www.ingenieriacantabria.com/agronomica
+
+## Preguntas frecuentes
+
+- ¿Realizáis ITE en Santander? → Sí, en toda Cantabria. Ver: https://www.ingenieriacantabria.com/edificacion
+- ¿En qué zonas trabajáis? → Toda Cantabria: Santander, Torrelavega, Castro-Urdiales, Laredo, Reinosa
+- ¿Cómo solicitar presupuesto? → https://www.ingenieriacantabria.com/#contacto
+- ¿Sois ingenieros colegiados? → Sí, todos nuestros técnicos están colegiados

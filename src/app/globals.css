@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&family=Lato:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Lato", sans-serif;
+    color: #1a2744;
+    background-color: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+    color: #1a3a5c;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#d4631a] text-white font-bold text-base rounded-sm hover:bg-[#b04f12] transition-all duration-300 min-h-[44px] cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold text-base rounded-sm hover:bg-white hover:text-[#1a3a5c] transition-all duration-300 min-h-[44px] cursor-pointer hover:scale-105 active:scale-95;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1a3a5c] text-[#1a3a5c] font-semibold text-base rounded-sm hover:bg-[#1a3a5c] hover:text-white transition-all duration-300 min-h-[44px] cursor-pointer hover:scale-105 active:scale-95;
+  }
+
+  .card {
+    @apply bg-white rounded-sm shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-sm font-body text-base focus:outline-none focus:ring-2 focus:ring-[#1a3a5c] focus:border-transparent transition-colors duration-200 bg-white;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  /* Animación de entrada al hacer scroll */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Si JS no carga, mostrar igualmente el contenido */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { opacity: 1; transform: none; }
+  }
+
+  .fade-up-delay-1 { transition-delay: 0.1s; }
+  .fade-up-delay-2 { transition-delay: 0.2s; }
+  .fade-up-delay-3 { transition-delay: 0.3s; }
+  .fade-up-delay-4 { transition-delay: 0.4s; }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-heading {
+    font-family: "Raleway", sans-serif;
+  }
+
+  .font-body {
+    font-family: "Lato", sans-serif;
+  }
+}
+
+/* Animación del hero: texto aparece al cargar */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroBadge {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 99, 26, 0.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(212, 99, 26, 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.hero-badge    { animation: heroBadge 0.6s ease-out 0.2s both; }
+.hero-title    { animation: heroFadeIn 0.8s ease-out 0.4s both; }
+.hero-subtitle { animation: heroFadeIn 0.8s ease-out 0.6s both; }
+.hero-ctas     { animation: heroFadeIn 0.8s ease-out 0.8s both; }
+.hero-stats    { animation: heroFadeIn 0.8s ease-out 1.0s both; }
+
+.pulse-glow { animation: pulse-glow 2s infinite; }
+.float      { animation: float 4s ease-in-out infinite; }
+
+/* Gradiente animado para títulos destacados */
+.gradient-text {
+  background: linear-gradient(90deg, #d4631a, #f09050, #d4631a);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Línea decorativa animada bajo títulos de sección */
+.section-line {
+  display: inline-block;
+  width: 48px;
+  height: 3px;
+  background: #d4631a;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 2s linear infinite;
+}

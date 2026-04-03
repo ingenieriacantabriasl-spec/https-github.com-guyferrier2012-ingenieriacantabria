@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview Diseño — Ingeniería Cantabria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Lato', sans-serif; color: #1a2744; background: #fff; }
+    h1,h2,h3,h4 { font-family: 'Raleway', sans-serif; }
+
+    /* BANNER */
+    .preview-banner {
+      background: #d4631a; color: white; text-align: center;
+      padding: 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(10,22,40,0.97); backdrop-filter: blur(8px);
+      padding: 0 2rem; display: flex; align-items: center;
+      justify-content: space-between; height: 68px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .logo { color: white; font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 1.15rem; text-decoration: none; }
+    .logo span { color: #d4631a; }
+    nav { display: flex; gap: 2rem; }
+    nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em; transition: color 0.2s; }
+    nav a:hover { color: #d4631a; }
+    .nav-cta {
+      background: #d4631a; color: white; padding: 8px 20px;
+      border-radius: 2px; font-weight: 700; font-size: 0.85rem;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #c25a17; color: white; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 55%, #1e4d7a 100%);
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 7rem 2rem 5rem;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.06;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.5) 60px, rgba(255,255,255,0.5) 61px),
+        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.5) 60px, rgba(255,255,255,0.5) 61px);
+    }
+    .hero-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, transparent, #d4631a, transparent); }
+    .hero-glow { position: absolute; top: 50%; right: -5%; transform: translateY(-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(212,99,26,0.15) 0%, transparent 70%); }
+    .hero-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-left {}
+
+    /* Trust badge mejorado */
+    .hero-trust-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+    .trust-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(212,99,26,0.5);
+      border-radius: 2px; padding: 6px 14px;
+      color: rgba(255,255,255,0.9); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      backdrop-filter: blur(4px);
+    }
+    .trust-badge-dot { width: 8px; height: 8px; background: #d4631a; border-radius: 50%; flex-shrink: 0; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.2)} }
+
+    .hero h1 { color: white; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.25rem; }
+    .hero h1 .accent { background: linear-gradient(90deg, #d4631a, #f09050); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: rgba(255,255,255,0.75); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 520px; }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .btn-primary {
+      background: #d4631a; color: white; padding: 14px 28px;
+      border-radius: 2px; font-family: 'Raleway', sans-serif; font-weight: 700;
+      font-size: 0.95rem; text-decoration: none; transition: all 0.2s;
+      cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: #c25a17; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(212,99,26,0.4); }
+    .btn-secondary {
+      background: transparent; color: white; padding: 14px 28px;
+      border-radius: 2px; font-family: 'Raleway', sans-serif; font-weight: 600;
+      font-size: 0.95rem; text-decoration: none; transition: all 0.2s;
+      border: 1.5px solid rgba(255,255,255,0.3); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+    .hero-stats { display: flex; gap: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+    .stat-value { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 2rem; background: linear-gradient(90deg, #d4631a, #f09050); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { color: rgba(255,255,255,0.55); font-size: 0.8rem; margin-top: 2px; }
+
+    /* Hero derecha — card credenciales */
+    .hero-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 2rem; backdrop-filter: blur(8px);
+    }
+    .hero-card-title { color: rgba(255,255,255,0.5); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .credential-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .credential-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .credential-icon { width: 38px; height: 38px; background: rgba(212,99,26,0.15); border: 1px solid rgba(212,99,26,0.3); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #d4631a; }
+    .credential-name { color: white; font-weight: 700; font-size: 0.875rem; margin-bottom: 2px; }
+    .credential-detail { color: rgba(255,255,255,0.5); font-size: 0.78rem; }
+    .verified-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #86efac; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; margin-top: 4px; }
+
+    .wave { display: block; width: 100%; }
+
+    /* SERVICES */
+    .services { padding: 6rem 2rem; background: white; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-tag { color: #d4631a; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .section-tag::before, .section-tag::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: #d4631a; }
+    .section-h2 { color: #1a3a5c; font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 900; margin-bottom: 1rem; }
+    .section-sub { color: #4a6080; font-size: 1.05rem; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .service-card {
+      border-radius: 4px; overflow: hidden; cursor: pointer;
+      transition: all 0.25s; border: 1px solid #e8ecf0;
+      display: flex; flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); border-color: transparent; }
+    .service-card-bar { height: 4px; transition: height 0.25s; }
+    .service-card:hover .service-card-bar { height: 6px; }
+    .service-card-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+    .service-icon-wrap {
+      width: 52px; height: 52px; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem; transition: transform 0.25s;
+    }
+    .service-card:hover .service-icon-wrap { transform: scale(1.1); }
+    .service-title { color: #1a3a5c; font-size: 1.1rem; font-weight: 800; margin-bottom: 0.6rem; }
+    .service-desc { color: #4a6080; font-size: 0.875rem; line-height: 1.65; margin-bottom: 1.25rem; flex: 1; }
+    .service-items { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 7px; }
+    .service-items li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; color: #1a2744; }
+    .check-circle { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .service-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 0.85rem; text-decoration: none; transition: gap 0.2s; }
+    .service-link:hover { gap: 10px; }
+
+    /* WHY US */
+    .whyus { padding: 6rem 2rem; background: #f5f7fa; }
+    .whyus-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .whyus-quote { background: white; border-left: 4px solid #d4631a; padding: 1.5rem 1.75rem; border-radius: 0 4px 4px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-top: 1.5rem; }
+    .whyus-quote p { color: #1a3a5c; font-style: italic; line-height: 1.7; font-size: 0.95rem; }
+    .reasons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .reason-card {
+      background: white; padding: 1.25rem; border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); cursor: default;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex; align-items: flex-start; gap: 14px;
+      border: 1px solid #e8ecf0;
+    }
+    .reason-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    .reason-icon { width: 40px; height: 40px; background: #f0f4f8; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #1a3a5c; }
+    .reason-title { color: #1a3a5c; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 0.875rem; margin-bottom: 4px; }
+    .reason-desc { color: #4a6080; font-size: 0.78rem; line-height: 1.55; }
+
+    /* CONTACT */
+    .contact { padding: 6rem 2rem; background: #1a3a5c; }
+    .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-info-tag { color: #d4631a; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .contact-info-h2 { color: white; font-size: clamp(1.75rem, 2.5vw, 2.25rem); font-weight: 900; margin-bottom: 1rem; }
+    .contact-info-p { color: rgba(255,255,255,0.65); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; }
+    .contact-items { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 14px; }
+    .contact-item-icon { width: 42px; height: 42px; background: rgba(212,99,26,0.15); border: 1px solid rgba(212,99,26,0.3); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #d4631a; }
+    .contact-item-label { color: rgba(255,255,255,0.45); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+    .contact-item-value { color: white; font-size: 0.9rem; }
+    .contact-item-value a { color: white; text-decoration: none; }
+    .contact-item-value a:hover { color: #d4631a; }
+
+    .contact-form-wrap { background: white; border-radius: 4px; padding: 2.25rem; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group:last-of-type { margin-bottom: 0; }
+    label { display: block; color: #1a3a5c; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 0.8rem; margin-bottom: 6px; }
+    input, select, textarea {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #d1d8e0;
+      border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.9rem;
+      color: #1a2744; background: #fafbfc; transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: #1a3a5c; box-shadow: 0 0 0 3px rgba(26,58,92,0.1); background: white; }
+    textarea { resize: none; }
+    .form-privacy { color: #9ca3af; font-size: 0.75rem; margin: 0.75rem 0; line-height: 1.5; }
+    .form-privacy a { color: #1a3a5c; }
+    .btn-submit {
+      width: 100%; background: #d4631a; color: white; border: none;
+      padding: 13px 24px; border-radius: 2px; font-family: 'Raleway', sans-serif;
+      font-weight: 700; font-size: 0.95rem; cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-submit:hover { background: #c25a17; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,99,26,0.35); }
+
+    /* CTA */
+    .cta-section { padding: 5rem 2rem; background: #d4631a; position: relative; overflow: hidden; text-align: center; }
+    .cta-section h2 { color: white; font-size: clamp(1.75rem, 3vw, 2.75rem); font-weight: 900; margin-bottom: 1rem; }
+    .cta-section p { color: rgba(255,255,255,0.85); font-size: 1.05rem; margin-bottom: 2rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-white { background: white; color: #d4631a; padding: 13px 28px; border-radius: 2px; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 8px; }
+    .cta-btn-white:hover { background: #fff7f3; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .cta-btn-outline { background: transparent; color: white; padding: 13px 28px; border-radius: 2px; font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 2px solid rgba(255,255,255,0.6); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .cta-btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+    /* FOOTER */
+    footer { background: #0a1628; color: rgba(255,255,255,0.55); padding: 1.5rem 2rem; text-align: center; font-size: 0.8rem; }
+
+    /* SECTION LABEL */
+    .section-line { width: 48px; height: 3px; background: #d4631a; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+<div class="preview-banner">⚠️ PREVIEW — Diseño propuesto, aún no aplicado en producción</div>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="#">Ingeniería<span>Cantabria</span></a>
+  <nav>
+    <a href="#">Servicios</a>
+    <a href="#">Industrial</a>
+    <a href="#">Edificación</a>
+    <a href="#">Agronómica</a>
+    <a href="#">Blog</a>
+  </nav>
+  <a class="nav-cta" href="#">Presupuesto →</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-trust-row">
+        <div class="trust-badge">
+          <span class="trust-badge-dot"></span>
+          Ingenieros Colegiados · Cantabria
+        </div>
+        <div class="trust-badge" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);">
+          +200 proyectos
+        </div>
+      </div>
+
+      <h1>
+        Ingeniería técnica<br>
+        <span class="accent">al servicio</span><br>
+        de tu proyecto
+      </h1>
+      <p>Especialistas en ingeniería industrial, edificación y agronómica en Cantabria. Proyectos, legalizaciones, peritajes y consultoría técnica con rigor y experiencia.</p>
+
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          Solicitar presupuesto gratuito
+        </a>
+        <a class="btn-secondary" href="#">
+          Ver nuestros servicios
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div><div class="stat-value">+200</div><div class="stat-label">Proyectos completados</div></div>
+        <div><div class="stat-value">15+</div><div class="stat-label">Años de experiencia</div></div>
+        <div><div class="stat-value">3</div><div class="stat-label">Especialidades</div></div>
+        <div><div class="stat-value">100%</div><div class="stat-label">Colegiados</div></div>
+      </div>
+    </div>
+
+    <!-- Hero card de credenciales -->
+    <div class="hero-card">
+      <div class="hero-card-title">Credenciales y garantías</div>
+      <div class="credential-item">
+        <div class="credential-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <div class="credential-name">Ingeniero Técnico Industrial Colegiado</div>
+          <div class="credential-detail">Jesús Rosas · Colegio de Cantabria</div>
+          <div class="verified-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Verificado
+          </div>
+        </div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="credential-name">Seguro de Responsabilidad Civil</div>
+          <div class="credential-detail">Cobertura profesional completa</div>
+          <div class="verified-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Activo
+          </div>
+        </div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="credential-name">Respuesta garantizada en 24h</div>
+          <div class="credential-detail">Lun–Vie 9:00–18:00 · Torrelavega</div>
+        </div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="credential-name">+200 clientes satisfechos</div>
+          <div class="credential-detail">15 años en Cantabria</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <svg class="wave" style="position:absolute;bottom:0;left:0;right:0" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#ffffff"/>
+  </svg>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="section-header">
+    <div class="section-tag">Nuestras especialidades</div>
+    <h2 class="section-h2">Tres áreas, un equipo de confianza</h2>
+    <p class="section-sub">Cubrimos todas las necesidades de ingeniería técnica para empresas, particulares e instituciones en Cantabria.</p>
+  </div>
+
+  <div class="services-grid">
+    <!-- Industrial -->
+    <div class="service-card">
+      <div class="service-card-bar" style="background:#e07b39"></div>
+      <div class="service-card-body" style="background: linear-gradient(160deg, #fff9f5 0%, #fff 60%);">
+        <div class="service-icon-wrap" style="background:#fff0e6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e07b39" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/><path d="m15 5 3 3"/></svg>
+        </div>
+        <h3 class="service-title">Ingeniería Industrial</h3>
+        <p class="service-desc">Proyectos de instalaciones industriales, legalización de maquinaria, seguridad industrial y eficiencia energética.</p>
+        <ul class="service-items">
+          <li><span class="check-circle" style="background:#e07b39"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Proyectos de instalaciones eléctricas y mecánicas</li>
+          <li><span class="check-circle" style="background:#e07b39"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Legalización de maquinaria y equipos</li>
+          <li><span class="check-circle" style="background:#e07b39"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Auditorías energéticas</li>
+          <li><span class="check-circle" style="background:#e07b39"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Certificados de eficiencia energética</li>
+        </ul>
+        <a class="service-link" href="#" style="color:#e07b39">Ver más detalles <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Edificación -->
+    <div class="service-card">
+      <div class="service-card-bar" style="background:#2d6a9f"></div>
+      <div class="service-card-body" style="background: linear-gradient(160deg, #f5f8ff 0%, #fff 60%);">
+        <div class="service-icon-wrap" style="background:#e8f0fa">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2d6a9f" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3 class="service-title">Ingeniería de Edificación</h3>
+        <p class="service-desc">Proyectos de construcción, reformas, inspecciones técnicas de edificios (ITE) y rehabilitación en Cantabria.</p>
+        <ul class="service-items">
+          <li><span class="check-circle" style="background:#2d6a9f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Proyectos de obra nueva y reforma</li>
+          <li><span class="check-circle" style="background:#2d6a9f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Dirección técnica de obras</li>
+          <li><span class="check-circle" style="background:#2d6a9f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Inspecciones técnicas (ITE)</li>
+          <li><span class="check-circle" style="background:#2d6a9f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Peritajes y tasaciones</li>
+        </ul>
+        <a class="service-link" href="#" style="color:#2d6a9f">Ver más detalles <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Agronómica -->
+    <div class="service-card">
+      <div class="service-card-bar" style="background:#2d6a4f"></div>
+      <div class="service-card-body" style="background: linear-gradient(160deg, #f4faf6 0%, #fff 60%);">
+        <div class="service-icon-wrap" style="background:#e3f4ea">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2d6a4f" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M5 3a7 7 0 0 0 7 7"/><path d="M19 3a7 7 0 0 1-7 7"/></svg>
+        </div>
+        <h3 class="service-title">Ingeniería Agronómica</h3>
+        <p class="service-desc">Proyectos agronómicos, gestión de explotaciones y asesoramiento técnico para el sector agrícola y ganadero.</p>
+        <ul class="service-items">
+          <li><span class="check-circle" style="background:#2d6a4f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Proyectos de explotaciones ganaderas</li>
+          <li><span class="check-circle" style="background:#2d6a4f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Estudios de viabilidad agrícola</li>
+          <li><span class="check-circle" style="background:#2d6a4f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Planes de gestión de purines</li>
+          <li><span class="check-circle" style="background:#2d6a4f"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Asesoramiento PAC y subvenciones</li>
+        </ul>
+        <a class="service-link" href="#" style="color:#2d6a4f">Ver más detalles <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="whyus">
+  <div class="whyus-inner">
+    <div>
+      <div class="section-line"></div>
+      <div style="color:#d4631a;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem">Por qué elegirnos</div>
+      <h2 class="section-h2">Rigor técnico y compromiso con el cliente</h2>
+      <p style="color:#4a6080;font-size:1rem;line-height:1.7;margin-bottom:1.5rem">En Ingeniería Cantabria no somos una gran consultora anónima. Somos un equipo técnico local con nombre y apellidos, comprometidos con cada proyecto como si fuera el nuestro.</p>
+      <div class="whyus-quote">
+        <p>"Más de 200 proyectos completados en Cantabria. Cada uno tratado con la misma atención y rigor que el primero."</p>
+      </div>
+    </div>
+    <div class="reasons-grid">
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div><div class="reason-title">Ingenieros colegiados</div><div class="reason-desc">Validez legal y técnica garantizada en cada proyecto.</div></div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div><div class="reason-title">Conocemos Cantabria</div><div class="reason-desc">15 años de experiencia en normativa local y organismos.</div></div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div><div class="reason-title">Plazos cumplidos</div><div class="reason-desc">Entregamos en plazo o avisamos con antelación.</div></div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div><div class="reason-title">Comunicación directa</div><div class="reason-desc">Trato directo con el ingeniero. Respuesta en 24h.</div></div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div><div class="reason-title">Presupuesto claro</div><div class="reason-desc">Sin costes ocultos ni sorpresas en la factura final.</div></div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div><div class="reason-title">Seguros de RC</div><div class="reason-desc">Responsabilidad civil profesional activa.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>¿Tiene un proyecto en mente?</h2>
+  <p>Cuéntenos qué necesita. Le respondemos en menos de 24 horas con un presupuesto sin compromiso.</p>
+  <div class="cta-btns">
+    <button class="cta-btn-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Solicitar presupuesto gratuito
+    </button>
+    <a class="cta-btn-outline" href="tel:+34623967087">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +34 623 96 70 87
+    </a>
+  </div>
+</section>
+
+<!-- URGENCY BANNER -->
+<div style="background:#1a3a5c;padding:14px 2rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+  <div style="display:flex;align-items:center;gap:8px;color:white;font-size:0.9rem;font-family:'Lato',sans-serif;">
+    <span style="width:8px;height:8px;background:#22c55e;border-radius:50%;flex-shrink:0;animation:pulse 2s infinite"></span>
+    <strong style="font-family:'Raleway',sans-serif">Disponible ahora</strong> — Respondemos en menos de 24 horas
+  </div>
+  <a href="#" style="background:#d4631a;color:white;padding:8px 20px;border-radius:2px;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.82rem;text-decoration:none;white-space:nowrap;">Solicitar presupuesto →</a>
+</div>
+
+<!-- TESTIMONIALS -->
+<section style="padding:6rem 2rem;background:white;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-tag">Opiniones de clientes</div>
+      <h2 class="section-h2">Lo que dicen nuestros clientes</h2>
+      <p class="section-sub">Más de 200 proyectos completados en Cantabria. Empresas, particulares e instituciones que confían en nosotros.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+
+      <div style="background:#f8fafc;border:1px solid #e8ecf0;border-radius:4px;padding:1.75rem;position:relative;">
+        <div style="display:flex;gap:3px;margin-bottom:1rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p style="color:#374151;font-size:0.9rem;line-height:1.7;margin-bottom:1.25rem;font-style:italic;">"Nos ayudaron con la legalización de toda la maquinaria de nuestra planta. Rápidos, profesionales y sin complicaciones. Totalmente recomendables."</p>
+        <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #e8ecf0;padding-top:1rem;">
+          <div style="width:36px;height:36px;background:#1a3a5c;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.85rem;flex-shrink:0;">CM</div>
+          <div><div style="color:#1a3a5c;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.85rem;">Carlos M.</div><div style="color:#6b7280;font-size:0.75rem;">Director técnico · Industria metalúrgica</div></div>
+        </div>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e8ecf0;border-radius:4px;padding:1.75rem;">
+        <div style="display:flex;gap:3px;margin-bottom:1rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p style="color:#374151;font-size:0.9rem;line-height:1.7;margin-bottom:1.25rem;font-style:italic;">"Gestionó la ITE de nuestro edificio de forma impecable. Trato cercano, explicó todo con claridad y resolvió las deficiencias detectadas sin problemas."</p>
+        <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #e8ecf0;padding-top:1rem;">
+          <div style="width:36px;height:36px;background:#2d6a9f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.85rem;flex-shrink:0;">AL</div>
+          <div><div style="color:#1a3a5c;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.85rem;">Ana L.</div><div style="color:#6b7280;font-size:0.75rem;">Presidenta comunidad · Santander</div></div>
+        </div>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e8ecf0;border-radius:4px;padding:1.75rem;">
+        <div style="display:flex;gap:3px;margin-bottom:1rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#d4631a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p style="color:#374151;font-size:0.9rem;line-height:1.7;margin-bottom:1.25rem;font-style:italic;">"Solicitamos un proyecto de explotación ganadera y el asesoramiento para solicitar las subvenciones PAC. Muy eficiente, conoce muy bien el sector."</p>
+        <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #e8ecf0;padding-top:1rem;">
+          <div style="width:36px;height:36px;background:#2d6a4f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.85rem;flex-shrink:0;">MR</div>
+          <div><div style="color:#1a3a5c;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.85rem;">Manuel R.</div><div style="color:#6b7280;font-size:0.75rem;">Ganadero · Valle de Cabuérniga</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding:6rem 2rem;background:#f5f7fa;">
+  <div style="max-width:800px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-tag">Preguntas frecuentes</div>
+      <h2 class="section-h2">Resolvemos sus dudas</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+
+      <details style="background:white;border:1px solid #e8ecf0;border-radius:4px;overflow:hidden;cursor:pointer;">
+        <summary style="padding:1.25rem 1.5rem;font-family:'Raleway',sans-serif;font-weight:700;color:#1a3a5c;font-size:0.95rem;display:flex;justify-content:space-between;align-items:center;list-style:none;">
+          ¿Cuánto tiempo tarda en hacerse un proyecto de legalización?
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4631a" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div style="padding:0 1.5rem 1.25rem;color:#4a6080;font-size:0.9rem;line-height:1.7;">
+          Depende del tipo de instalación y del organismo implicado. En general, la redacción del proyecto lleva entre 1 y 3 semanas. La tramitación ante organismos como Industria de Cantabria puede tardar entre 1 y 3 meses adicionales.
+        </div>
+      </details>
+
+      <details style="background:white;border:1px solid #e8ecf0;border-radius:4px;overflow:hidden;cursor:pointer;">
+        <summary style="padding:1.25rem 1.5rem;font-family:'Raleway',sans-serif;font-weight:700;color:#1a3a5c;font-size:0.95rem;display:flex;justify-content:space-between;align-items:center;list-style:none;">
+          ¿Trabajáis en toda Cantabria o solo en Torrelavega?
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4631a" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div style="padding:0 1.5rem 1.25rem;color:#4a6080;font-size:0.9rem;line-height:1.7;">
+          Trabajamos en toda la comunidad autónoma de Cantabria: Santander, Torrelavega, Laredo, Reinosa, Castro Urdiales, Comillas y cualquier otro municipio de la región.
+        </div>
+      </details>
+
+      <details style="background:white;border:1px solid #e8ecf0;border-radius:4px;overflow:hidden;cursor:pointer;">
+        <summary style="padding:1.25rem 1.5rem;font-family:'Raleway',sans-serif;font-weight:700;color:#1a3a5c;font-size:0.95rem;display:flex;justify-content:space-between;align-items:center;list-style:none;">
+          ¿El presupuesto inicial tiene algún coste?
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4631a" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div style="padding:0 1.5rem 1.25rem;color:#4a6080;font-size:0.9rem;line-height:1.7;">
+          No. El presupuesto inicial y la primera consulta técnica son completamente gratuitos y sin compromiso. Solo facturamos cuando decide contratarnos.
+        </div>
+      </details>
+
+      <details style="background:white;border:1px solid #e8ecf0;border-radius:4px;overflow:hidden;cursor:pointer;">
+        <summary style="padding:1.25rem 1.5rem;font-family:'Raleway',sans-serif;font-weight:700;color:#1a3a5c;font-size:0.95rem;display:flex;justify-content:space-between;align-items:center;list-style:none;">
+          ¿Qué diferencia hay entre un ingeniero técnico y uno superior?
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4631a" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div style="padding:0 1.5rem 1.25rem;color:#4a6080;font-size:0.9rem;line-height:1.7;">
+          Para la gran mayoría de proyectos, obras e instalaciones industriales, un ingeniero técnico colegiado tiene exactamente las mismas atribuciones legales que un superior. La colegiación es lo que garantiza la validez de los documentos técnicos.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAP / LOCATION -->
+<section style="padding:5rem 2rem;background:white;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+    <div>
+      <div class="section-line"></div>
+      <div style="color:#d4631a;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;">Dónde estamos</div>
+      <h2 class="section-h2" style="text-align:left;">Torrelavega, corazón de Cantabria</h2>
+      <p style="color:#4a6080;font-size:1rem;line-height:1.7;margin-bottom:2rem;">Ubicados en el centro de Cantabria, a menos de 30 minutos de Santander, Reinosa y la costa. Atendemos proyectos en toda la región.</p>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:40px;height:40px;background:#f0f4f8;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#1a3a5c;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div><div style="color:#1a3a5c;font-weight:700;font-size:0.875rem;margin-bottom:2px;">Dirección</div><div style="color:#4a6080;font-size:0.875rem;">C/ José María Pereda 21, 39300 Torrelavega</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:40px;height:40px;background:#f0f4f8;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#1a3a5c;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div><div style="color:#1a3a5c;font-weight:700;font-size:0.875rem;margin-bottom:2px;">Teléfono</div><div style="color:#4a6080;font-size:0.875rem;"><a href="tel:+34623967087" style="color:#d4631a;text-decoration:none;">+34 623 96 70 87</a></div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:40px;height:40px;background:#f0f4f8;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#1a3a5c;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div><div style="color:#1a3a5c;font-weight:700;font-size:0.875rem;margin-bottom:2px;">Horario</div><div style="color:#4a6080;font-size:0.875rem;">Lunes a Viernes: 9:00 – 18:00</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="border-radius:4px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12);height:320px;background:#e8ecf0;position:relative;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2899.5!2d-4.0499!3d43.3536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd497e3c4b1a5bcd%3A0x1!2sTorrelavega%2C%20Cantabria!5e0!3m2!1ses!2ses!4v1"
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="contact-info-tag">Contacto</div>
+      <h2 class="contact-info-h2">Cuéntenos su proyecto</h2>
+      <p class="contact-info-p">Solicite presupuesto sin compromiso. Le responderemos en menos de 24 horas con una propuesta adaptada a sus necesidades.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div><div class="contact-item-label">Teléfono</div><div class="contact-item-value"><a href="tel:+34623967087">+34 623 96 70 87</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="mailto:jesus@ingenieriacantabria.com">jesus@ingenieriacantabria.com</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div><div class="contact-item-label">Dirección</div><div class="contact-item-value">Torrelavega, Cantabria</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div><div class="contact-item-label">Horario</div><div class="contact-item-value">Lun–Vie: 9:00–18:00</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap">
+      <div class="form-row">
+        <div class="form-group"><label>Nombre *</label><input type="text" placeholder="Juan García"></div>
+        <div class="form-group"><label>Email *</label><input type="email" placeholder="juan@empresa.com"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Teléfono</label><input type="tel" placeholder="+34 600 000 000"></div>
+        <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nombre de empresa"></div>
+      </div>
+      <div class="form-group"><label>Tipo de servicio</label>
+        <select><option>Seleccionar servicio...</option><option>Ingeniería Industrial</option><option>Ingeniería de Edificación</option><option>Ingeniería Agronómica</option></select>
+      </div>
+      <div class="form-group"><label>Cuéntenos su proyecto *</label><textarea rows="4" placeholder="Describa brevemente qué necesita..."></textarea></div>
+      <p class="form-privacy">Al enviar acepta nuestra <a href="#">política de privacidad</a>. Sus datos solo se usan para responder su consulta.</p>
+      <button class="btn-submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Solicitar presupuesto gratuito
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Ingeniería Cantabria · Jesús Rosas, Ingeniero Técnico Colegiado · Torrelavega, Cantabria</p>
+</footer>
+
+</body>
+</html>
