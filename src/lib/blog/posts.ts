@@ -2455,20 +2455,24 @@ export function getAllSlugs(): string[] {
 
 // ── Supabase-backed posts (panel-marketing integration) ──────────────────────
 
+function s(v: unknown, fallback = ''): string {
+  return typeof v === 'string' ? v : fallback
+}
+
 function dbToLocal(p: Record<string, unknown>): BlogPost {
   return {
-    slug: p.slug,
-    title: p.title,
-    metaTitle: p.meta_title || p.title,
-    metaDescription: p.meta_description || '',
-    excerpt: p.excerpt || '',
-    date: typeof p.date === 'string' ? p.date.split('T')[0] : String(p.date),
-    category: p.category || 'Ingeniería',
-    categoryColor: p.category_color || '#d4631a',
-    readingTime: p.reading_time || 5,
-    coverImage: p.cover_image || '/blog/ingenieria-cantabria-default.jpg',
-    coverImageAlt: p.cover_image_alt || p.title,
-    content: p.content,
+    slug: s(p.slug),
+    title: s(p.title),
+    metaTitle: s(p.meta_title) || s(p.title),
+    metaDescription: s(p.meta_description),
+    excerpt: s(p.excerpt),
+    date: typeof p.date === 'string' ? p.date.split('T')[0] : String(p.date ?? ''),
+    category: s(p.category, 'Ingeniería'),
+    categoryColor: s(p.category_color, '#d4631a'),
+    readingTime: typeof p.reading_time === 'number' ? p.reading_time : 5,
+    coverImage: s(p.cover_image, '/blog/ingenieria-cantabria-default.jpg'),
+    coverImageAlt: s(p.cover_image_alt) || s(p.title),
+    content: s(p.content),
   }
 }
 
