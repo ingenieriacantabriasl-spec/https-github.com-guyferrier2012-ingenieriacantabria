@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
-import { posts } from "@/lib/blog/posts"
+import { getAllPosts } from "@/lib/blog/posts"
 
 export const metadata: Metadata = {
   title: "Blog de Ingeniería — Guías y recursos técnicos en Cantabria",
@@ -15,7 +15,8 @@ function formatDate(dateStr: string) {
   return date.toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getAllPosts()
   return (
     <>
       <section

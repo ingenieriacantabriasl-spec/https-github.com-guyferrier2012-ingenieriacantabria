@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { getPostBySlug, getAllSlugs, posts } from "@/lib/blog/posts"
+import { getPostBySlug, getPostBySlugAsync, getAllSlugs, posts } from "@/lib/blog/posts"
 import { getBreadcrumbSchema } from "@/lib/schema/breadcrumb"
 
 interface Props {
@@ -137,8 +137,8 @@ function renderContent(content: string) {
   return elements
 }
 
-export default function BlogPostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug)
+export default async function BlogPostPage({ params }: Props) {
+  const post = await getPostBySlugAsync(params.slug)
   if (!post) notFound()
 
   const breadcrumbSchema = getBreadcrumbSchema([

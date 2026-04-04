@@ -2452,3 +2452,56 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 export function getAllSlugs(): string[] {
   return posts.map((p) => p.slug)
 }
+
+// ── Supabase-backed posts (panel-marketing integration) ──────────────────────
+
+function dbToLocal(p: any): BlogPost {
+  return {
+    slug: p.slug,
+    title: p.title,
+    metaTitle: p.meta_title || p.title,
+    metaDescription: p.meta_description || '',
+    excerpt: p.excerpt || '',
+    date: typeof p.date === 'string' ? p.date.split('T')[0] : String(p.date),
+    category: p.category || 'Ingeniería',
+    categoryColor: p.category_color || '#d4631a',
+    readingTime: p.reading_time || 5,
+    coverImage: p.cover_image || '/blog/ingenieria-cantabria-default.jpg',
+    coverImageAlt: p.cover_image_alt || p.title,
+    content: p.content,
+  }
+}
+
+export async function getAllPosts(): Promise<BlogPost[]> {
+  try {
+    const { createServerClient } = await import('@/lib/supabase-server')
+    const db = createServerClient()
+    const { data } = await db
+      .from('blog_posts')
+      .select('*')
+      .eq('published', true)
+      .order('date', { ascending: false })
+    const dbPosts = (data || []).map(dbToLocal)
+    const slugsDB = new Set(dbPosts.map((p: BlogPost) => p.slug))
+    return [...dbPosts, ...posts.filter((p) => !slugsDB.has(p.slug))].sort((a, b) =>
+      b.date.localeCompare(a.date)
+    )
+  } catch {
+    return posts
+  }
+}
+
+export async function getPostBySlugAsync(slug: string): Promise<BlogPost | undefined> {
+  try {
+    const { createServerClient } = await import('@/lib/supabase-server')
+    const db = createServerClient()
+    const { data } = await db
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .eq('published', true)
+      .single()
+    if (data) return dbToLocal(data)
+  } catch { /* noop */ }
+  return getPostBySlug(slug)
+}
