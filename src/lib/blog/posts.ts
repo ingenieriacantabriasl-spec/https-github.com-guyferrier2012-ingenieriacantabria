@@ -2455,7 +2455,7 @@ export function getAllSlugs(): string[] {
 
 // ── Supabase-backed posts (panel-marketing integration) ──────────────────────
 
-function dbToLocal(p: any): BlogPost {
+function dbToLocal(p: Record<string, unknown>): BlogPost {
   return {
     slug: p.slug,
     title: p.title,
@@ -2472,7 +2472,7 @@ function dbToLocal(p: any): BlogPost {
   }
 }
 
-async function fetchFromSupabase(path: string): Promise<any[] | null> {
+async function fetchFromSupabase(path: string): Promise<Record<string, unknown>[] | null> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !key) return null
