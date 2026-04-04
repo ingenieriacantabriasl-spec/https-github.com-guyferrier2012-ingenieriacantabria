@@ -4,6 +4,10 @@ const nextConfig = {
 
   images: {
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.pexels.com" },
+      { protocol: "https", hostname: "jaehghuhrthrmjuzehiw.supabase.co" },
+    ],
   },
 
   async headers() {
