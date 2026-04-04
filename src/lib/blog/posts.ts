@@ -2472,36 +2472,38 @@ function dbToLocal(p: any): BlogPost {
   }
 }
 
-export async function getAllPosts(): Promise<BlogPost[]> {
+async function fetchFromSupabase(path: string): Promise<any[] | null> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) return null
   try {
-    const { createServerClient } = await import('@/lib/supabase-server')
-    const db = createServerClient()
-    const { data } = await db
-      .from('blog_posts')
-      .select('*')
-      .eq('published', true)
-      .order('date', { ascending: false })
-    const dbPosts = (data || []).map(dbToLocal)
-    const slugsDB = new Set(dbPosts.map((p: BlogPost) => p.slug))
-    return [...dbPosts, ...posts.filter((p) => !slugsDB.has(p.slug))].sort((a, b) =>
-      b.date.localeCompare(a.date)
-    )
+    const res = await fetch(`${url}/rest/v1/${path}`, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+      next: { revalidate: 300 },
+    })
+    if (!res.ok) return null
+    return res.json()
   } catch {
-    return posts
+    return null
   }
 }
 
+export async function getAllPosts(): Promise<BlogPost[]> {
+  const data = await fetchFromSupabase(
+    "blog_posts?select=*&published=eq.true&order=date.desc"
+  )
+  if (!data || data.length === 0) return posts
+  const dbPosts = data.map(dbToLocal)
+  const slugsDB = new Set(dbPosts.map((p: BlogPost) => p.slug))
+  return [...dbPosts, ...posts.filter((p) => !slugsDB.has(p.slug))].sort((a, b) =>
+    b.date.localeCompare(a.date)
+  )
+}
+
 export async function getPostBySlugAsync(slug: string): Promise<BlogPost | undefined> {
-  try {
-    const { createServerClient } = await import('@/lib/supabase-server')
-    const db = createServerClient()
-    const { data } = await db
-      .from('blog_posts')
-      .select('*')
-      .eq('slug', slug)
-      .eq('published', true)
-      .single()
-    if (data) return dbToLocal(data)
-  } catch { /* noop */ }
+  const data = await fetchFromSupabase(
+    `blog_posts?select=*&slug=eq.${encodeURIComponent(slug)}&published=eq.true&limit=1`
+  )
+  if (data && data.length > 0) return dbToLocal(data[0])
   return getPostBySlug(slug)
 }

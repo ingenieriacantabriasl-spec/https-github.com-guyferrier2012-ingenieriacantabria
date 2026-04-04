@@ -3,6 +3,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { getAllPosts } from "@/lib/blog/posts"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Blog de Ingeniería — Guías y recursos técnicos en Cantabria",
   description:
